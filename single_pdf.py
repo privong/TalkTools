@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import argparse
@@ -14,8 +14,8 @@ args = parser.parse_args()
 output = PdfFileWriter()
 
 for pdf in args.pdfs:
-    inpdf = PdfFileReader(file(pdf, 'rb'))
+    inpdf = PdfFileReader(open(pdf, 'rb'))
     for i in range(inpdf.getNumPages()):
         output.addPage(inpdf.getPage(i))
 
-output.write(file(args.outfile, "wb"))
+output.write(open(args.outfile, "wb"))
