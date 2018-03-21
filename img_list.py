@@ -37,7 +37,7 @@ match order of figures in the file.')
         texfile = open(args.texfile)
     except FileNotFoundError:
         sys.stderr.write("Error: couldn't open " + args.texfile +
-                         "for reading.\n\n")
+" for reading.\n\n")
         sys.exit(1)
 
     imglist = []
@@ -90,3 +90,6 @@ match order of figures in the file.')
         sys.stdout.write("\n\n")
     else:
         sys.stderr.write("No unused images found.\n\n")
+
+if __name__ == "__main__":
+    main()
