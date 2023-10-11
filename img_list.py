@@ -28,7 +28,7 @@ match order of figures in the file.')
     """
     args = parser.parse_args()
 
-    suffix = ['jpg', 'png', 'gif', 'pdf', 'eps', 'ps']
+    suffix = ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'eps', 'ps']
 
     if not args.images[-1] == '/':
         args.images = args.images + '/'
@@ -43,11 +43,12 @@ match order of figures in the file.')
     imglist = []
     rmlist = []
 
+    # get a list of all images included in the TeX file
     for line in texfile:
         if re.search('includegraphics', line):
             sline = line.split('\\includegraphics')
-            for i in range(1, len(sline)-1):
-                img = sline[i].split(']{')[1].split('}')[0]
+            for i in range(len(sline)-1):
+                img = sline[i+1].split(']{')[1].split('}')[0]
                 if not img in imglist:
                     imglist.append(img)
 
@@ -55,7 +56,7 @@ match order of figures in the file.')
         nomatch = True
         i = 0
         while nomatch:
-            if re.search(suffix[i], filename):
+            if re.search(suffix[i], filename, re.IGNORECASE):
                 nomatch = False
                 if not (args.images + filename).split('\/')[-1] in imglist:
                     if not re.search(sys.argv[1].split('.tex')[0],
